@@ -28,7 +28,9 @@ import { useState, useEffect } from "react";
 
 const CancellableDataFetcher = function () {
   const [isFetching, setIsFetching] = useState(false);
-  const [data, setData] = useState(null;
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("No fetch attempts, yet.");
   // fetching
   // cancellable
 
@@ -43,43 +45,67 @@ const CancellableDataFetcher = function () {
       };
 
       const fetchPromise = new Promise((resolve, reject) => {
+        const intervalId = setInterval(() => {
+          if (!isFetching) reject("Fetch cancelled");
+        }, 100);
+
         setTimeout(() => {
+          clearInterval(intervalId);
           resolve(fetchingCargo);
         }, 3000);
       });
 
       const data = await fetchPromise;
-      return data;
+      setIsFetching(false);
+      setData(data?.data);
+      setMessage("Success");
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
+      setMessage(err);
     }
   };
 
-  useEffect(() => {
+  const cancelFetch = function () {
+    setIsFetching(() => false);
+    setIsLoading(() => false);
+    setData(null);
+  };
 
+  useEffect(() => {
+    if (!isFetching) return;
+    fetchData();
   }, [isFetching]);
 
   const triggerFetch = function () {
-    setIsFetching(true);
+    setIsLoading(() => true);
+    setIsFetching(() => true);
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-        {data && <>
-                <h1>Data: </h1>
-                <div>
-                    <label>Items: </label>
-                    <span>{data.items}</span>
-                    <label>Brand: </label>
-                    <span>{data.brand} </span>
-                </div>
-            </>
-        }
+    <div className="w-screen h-screen flex flex-col justify-center items-center">
+      {<h1>{message}</h1>}
+      {data && (
+        <>
+          <h1>Data: </h1>
+          <div>
+            <label>Items: </label>
+            <span>{data.items}</span>
+            <label>Brand: </label>
+            <span>{data.brand} </span>
+          </div>
+        </>
+      )}
+      {isLoading && <p>Loading...</p>}
 
-      <button onClick={triggerFetch} className="p-4 m-4 border-2 border-black rounded-md bg-blue-600 text-white font-black">
-        Fetch data
-      </button>
-      <button className="p-4 m-4 border-2 border-black rounded-md bg-red-600 text-white font-black">Cancel</button>
+      <div className="mt-12">
+        <button onClick={triggerFetch} className="cursor-pointer p-4 m-4 border-2 border-black rounded-md bg-blue-600 text-white font-black">
+          Fetch data
+        </button>
+        <button onClick={() => cancelFetch()} className="p-4 m-4 border-2 border-black rounded-md bg-red-600 text-white font-black">
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };
