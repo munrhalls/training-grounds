@@ -4,13 +4,15 @@ import TooltipFeature from "./Category 1 - Component Co-location and Encapsulati
 import RegistrationFormFeature from "./Category 1 - Component Co-location and Encapsulation/2. The Form-and-Submit Unit (Action Encapsulation)/TheFormAndSubmitUnit";
 
 import SelfContainedLoader from "./Category 1 - Component Co-location and Encapsulation/3. The Self-Contained Loader/SelfContainedLoader";
+import CancellableDataFetcher from "./Category 1 - Component Co-location and Encapsulation/4. The Click-to-Fetch Controlled Loader/ClickToFetchControllerLoader";
 
 export default function Home() {
   return (
     <div>
       {/* <TooltipFeature /> */}
       {/* <RegistrationFormFeature /> */}
-      <SelfContainedLoader />
+      {/* <SelfContainedLoader /> */}
+      <CancellableDataFetcher />
     </div>
   );
 }
