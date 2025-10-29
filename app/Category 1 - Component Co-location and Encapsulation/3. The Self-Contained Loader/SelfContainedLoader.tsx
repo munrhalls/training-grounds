@@ -39,7 +39,7 @@ const SelfContainedLoader = function () {
         } else {
           reject("Error message: request failed.");
         }
-      }, 100);
+      }, 3000);
     });
 
     try {
