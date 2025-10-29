@@ -28,26 +28,35 @@ const SomeServerRequest = new Promise((resolve, _) => {
 const RegistrationFormFeature = function () {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [result, setResult] = useState(null);
 
-  const handleSubmit = function (e) {
+  const handleSubmit = async function (e) {
     e.preventDefault();
     setIsSubmitting(true);
+    const result = await SomeServerRequest;
+    console.log(result);
+    setResult(result);
+    setIsSubmitting(false);
   };
 
   return (
     <div className="w-full h-screen grid place-content-center">
-      <form onSubmit={(e) => handleSubmit(e)} className="w-full p-12 border-black border-2 rounded-lg">
-        <input className="border-gray-600 border-2 p-3 rounded-lg m-3" placeholder="email..." value={email} onChange={(e) => setEmail(e.target.value)} />
-        {isSubmitting ? (
-          <div className="w-full grid place-content-center">
-            <div className="">Submitting...</div>
-          </div>
-        ) : (
-          <button type="submit" className="p-4 cursor-pointer bg-blue-600 rounded-lg text-white font-black">
-            Submit
-          </button>
-        )}
-      </form>
+      {result ? (
+        <div className="p-4 font-black text-xl">Your email address has been set: {result.body}</div>
+      ) : (
+        <form onSubmit={(e) => handleSubmit(e)} className="w-full p-12 border-black border-2 rounded-lg">
+          <input className="border-gray-600 border-2 p-3 rounded-lg m-3" placeholder="email..." value={email} onChange={(e) => setEmail(e.target.value)} />
+          {isSubmitting ? (
+            <div className="w-full grid place-content-center">
+              <div className="">Submitting...</div>
+            </div>
+          ) : (
+            <button type="submit" className="p-4 cursor-pointer bg-blue-600 rounded-lg text-white font-black">
+              Submit
+            </button>
+          )}
+        </form>
+      )}
     </div>
   );
 };
