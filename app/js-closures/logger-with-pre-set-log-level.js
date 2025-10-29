@@ -9,7 +9,6 @@ const makeLogger = function (setting) {
   };
 
   const threshold = map[setting];
-  //   ok
   const logger = function (messageObj) {
     const { level, message } = messageObj;
     const score = map[level];
