@@ -63,6 +63,7 @@ const CancellableDataFetcher = function () {
     } catch (err) {
       console.error(err);
       setMessage(err);
+      setIsLoading(false);
     }
   };
 
@@ -84,8 +85,8 @@ const CancellableDataFetcher = function () {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center">
-      {<h1>{message}</h1>}
-      {data && (
+      {!isLoading && <h1>{message}</h1>}
+      {!isLoading && data && (
         <>
           <h1>Data: </h1>
           <div>
@@ -102,7 +103,7 @@ const CancellableDataFetcher = function () {
         <button onClick={triggerFetch} className="cursor-pointer p-4 m-4 border-2 border-black rounded-md bg-blue-600 text-white font-black">
           Fetch data
         </button>
-        <button onClick={() => cancelFetch()} className="p-4 m-4 border-2 border-black rounded-md bg-red-600 text-white font-black">
+        <button disabled={!isFetching} onClick={() => cancelFetch()} className="cursor-pointer p-4 m-4 border-2 border-black rounded-md bg-red-600 text-white font-black">
           Cancel
         </button>
       </div>
