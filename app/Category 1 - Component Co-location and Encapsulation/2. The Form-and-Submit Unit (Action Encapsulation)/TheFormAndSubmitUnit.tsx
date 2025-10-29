@@ -16,47 +16,52 @@
 
 import { useState } from "react";
 
-const SomeServerRequest = new Promise((resolve, _) => {
-  setTimeout(function () {
-    resolve({
-      request: "GET",
-      body: "The EMAIL DATA",
-    });
-  }, 4000);
-});
-
 const RegistrationFormFeature = function () {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState(null);
 
+  const SomeServerRequest = function (data) {
+    return new Promise((resolve, _) => {
+      return setTimeout(function () {
+        return resolve({
+          request: "GET",
+          body: data,
+        });
+      }, 2500);
+    });
+  };
+
   const handleSubmit = async function (e) {
     e.preventDefault();
     setIsSubmitting(true);
-    const result = await SomeServerRequest;
+    const result = await SomeServerRequest(email);
     console.log(result);
     setResult(result);
     setIsSubmitting(false);
+    setEmail("");
   };
 
   return (
     <div className="w-full h-screen grid place-content-center">
-      {result ? (
-        <div className="p-4 font-black text-xl">Your email address has been set: {result.body}</div>
-      ) : (
-        <form onSubmit={(e) => handleSubmit(e)} className="w-full p-12 border-black border-2 rounded-lg">
-          <input className="border-gray-600 border-2 p-3 rounded-lg m-3" placeholder="email..." value={email} onChange={(e) => setEmail(e.target.value)} />
-          {isSubmitting ? (
-            <div className="w-full grid place-content-center">
-              <div className="">Submitting...</div>
-            </div>
-          ) : (
-            <button type="submit" className="p-4 cursor-pointer bg-blue-600 rounded-lg text-white font-black">
-              Submit
-            </button>
-          )}
-        </form>
+      {result && (
+        <div className="p-4 font-black text-xl">
+          Your email address has been set: <span className="font-black text-blue-700">{result.body}</span>
+        </div>
       )}
+
+      <form onSubmit={(e) => handleSubmit(e)} className="w-full p-12 border-black border-2 rounded-lg">
+        <input className="border-gray-600 border-2 p-3 rounded-lg m-3" placeholder="email..." value={email} onChange={(e) => setEmail(e.target.value)} />
+        {isSubmitting ? (
+          <div className="w-full grid place-content-center">
+            <div className="">Submitting...</div>
+          </div>
+        ) : (
+          <button type="submit" className="p-4 cursor-pointer bg-blue-600 rounded-lg text-white font-black">
+            Submit
+          </button>
+        )}
+      </form>
     </div>
   );
 };
