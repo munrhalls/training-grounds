@@ -20,9 +20,9 @@ const SomeServerRequest = new Promise((resolve, _) => {
   setTimeout(function () {
     resolve({
       request: "GET",
-      body: "The DATA",
+      body: "The EMAIL DATA",
     });
-  }, 2000);
+  }, 4000);
 });
 
 const RegistrationFormFeature = function () {
