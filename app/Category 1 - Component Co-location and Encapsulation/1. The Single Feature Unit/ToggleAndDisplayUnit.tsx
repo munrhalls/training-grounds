@@ -12,6 +12,7 @@
  */
 
 import { useState } from "react";
+import { IoClose } from "react-icons/io5";
 
 const TooltipFeature = function () {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
@@ -20,6 +21,12 @@ const TooltipFeature = function () {
       <div className="w-fit grid place-content-center m-4">
         {isTooltipVisible && (
           <div className=" border-black border-4 rounded-3xl text-black p-4">
+            <div className="flex justify-end">
+              <button onClick={() => setIsTooltipVisible(false)}>
+                <IoClose className="w-6 h-6" />
+              </button>
+            </div>
+
             <h1>Tooltip title</h1>
             <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore saepe cum cupiditate harum, in non sed, nostrum dicta fuga deserunt ullam, nesciunt quia incidunt. Odio magni necessitatibus molestiae dicta facilis! </p>
             <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore saepe cum cupiditate harum, in non sed, nostrum dicta fuga deserunt ullam, nesciunt quia incidunt. Odio magni necessitatibus molestiae dicta facilis! </p>
@@ -29,7 +36,7 @@ const TooltipFeature = function () {
       </div>
 
       <button onClick={() => setIsTooltipVisible((is) => (is ? false : true))} className="m-4 w-40 grid place-content-center button-primary bg-blue-600 rounded-lg p-4 text-white font-black cursor-pointer">
-        {isTooltipVisible ? "SHOW" : "HIDE"}
+        {isTooltipVisible ? "HIDE" : "SHOW"}
       </button>
     </>
   );
