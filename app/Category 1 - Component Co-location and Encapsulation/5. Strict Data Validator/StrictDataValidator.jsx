@@ -42,6 +42,7 @@ import { useState, useEffect } from "react";
 const StrictDataValidator = function () {
   const [status, setStatus] = useState("loading");
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
   const mockFetch = function () {
     return new Promise((resolve, reject) => {
@@ -81,7 +82,9 @@ const StrictDataValidator = function () {
       } catch (err) {
         console.log(err);
         setStatus("error");
-        setData(err);
+        setData(null);
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        setError(errorMessage);
       }
     };
     runFetch();
@@ -108,7 +111,7 @@ const StrictDataValidator = function () {
       {status === "error" && (
         <p className="text-red-500">
           Error loading data.
-          <span className="block">{}</span>
+          <span className="block">{error}</span>
         </p>
       )}
     </div>
