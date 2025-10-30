@@ -39,7 +39,7 @@
 
 import { useState, useEffect } from "react";
 
-const mockDataServer = {
+const mockData = {
   data: [
     { items: 5, brand: "ok brand" },
     { items: 3, brand: "other ok brand" },
@@ -48,13 +48,53 @@ const mockDataServer = {
 
 const StrictDataValidator = function () {
   const [status, setStatus] = useState("loading");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+
+  const fetchMockData = async function () {
+    let timer;
+    console.log("fetch");
+    try {
+      const chance70 = Math.random() < 0.7;
+
+      const fetchPromise = new Promise((resolve, reject) => {
+        timer = setTimeout(() => {
+          if (chance70) {
+            resolve({ status: 500, data: mockData });
+          }
+          reject(new Error({ message: "Bad request" }));
+        }, 1500);
+      });
+      clearTimeout(timer);
+      return fetchPromise;
+    } catch (err) {
+      clearTimeout(timer);
+      console.log(err);
+      return err;
+    }
+  };
+
+  useEffect(() => {
+    const fetch = async function () {
+      console.log("wtf fetch");
+      const fetchedData = await fetchMockData;
+      if (fetchedData && fetchedData.status === 200 && fetchedData.data) {
+        setData(fetchedData.data);
+        setStatus("success");
+      } else {
+        console.log("errrrrrr");
+        console.log(fetchedData);
+        setError(fetchedData.error);
+        setStatus("error");
+      }
+    };
+    fetch();
+  }, [status]);
 
   return (
     <div className="flex justify-center items-center h-screen w-screen">
-      {loading && <h1>Loading...</h1>}
-      {error && <h1>{error}</h1>}
+      {status === "loading" && <h1>Loading...</h1>}
+      {status === "error" && <h1>{error.message}</h1>}
       {data && <h1>Data is here: TODO fill in data access</h1>}
     </div>
   );

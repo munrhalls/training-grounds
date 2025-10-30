@@ -8,6 +8,8 @@ import CancellableDataFetcher from "./Category 1 - Component Co-location and Enc
 
 import AutoResetButton from "./Category 1 - Component Co-location and Encapsulation/4. The Self-Owned Auto-Reset Button/SelfOwnedAutoResetButton";
 
+import StrictDataValidator from "./Category 1 - Component Co-location and Encapsulation/5. Strict Data Validator/StrictDataValidator";
+
 export default function Home() {
   return (
     <div>
@@ -15,7 +17,8 @@ export default function Home() {
       {/* <RegistrationFormFeature /> */}
       {/* <SelfContainedLoader /> */}
       {/* <CancellableDataFetcher /> */}
-      <AutoResetButton />
+      {/* <AutoResetButton /> */}
+      <StrictDataValidator />
     </div>
   );
 }
