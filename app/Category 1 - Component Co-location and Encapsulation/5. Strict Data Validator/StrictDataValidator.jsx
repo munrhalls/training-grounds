@@ -39,63 +39,62 @@
 
 import { useState, useEffect } from "react";
 
-const mockData = {
-  data: [
-    { items: 5, brand: "ok brand" },
-    { items: 3, brand: "other ok brand" },
-  ],
-};
-
 const StrictDataValidator = function () {
   const [status, setStatus] = useState("loading");
-  const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
-  const fetchMockData = async function () {
-    let timer;
-    console.log("fetch");
-    try {
-      const chance70 = Math.random() < 0.7;
-
-      const fetchPromise = new Promise((resolve, reject) => {
-        timer = setTimeout(() => {
-          if (chance70) {
-            resolve({ status: 500, data: mockData });
-          }
-          reject(new Error({ message: "Bad request" }));
-        }, 1500);
-      });
-      clearTimeout(timer);
-      return fetchPromise;
-    } catch (err) {
-      clearTimeout(timer);
-      console.log(err);
-      return err;
-    }
+  const mockFetch = async function () {
+    return new Promise((res, rej) => {
+      const timer = setTimeout(() => {
+        const chance = Math.random();
+        if (chance >= 0.7) {
+          const chance2 = Math.random();
+          chance2 >= 0.5
+            ? res({ statusCode: 500 })
+            : res({
+                statusCode: 200,
+                data: [
+                  { items: 5, brand: "ok brand" },
+                  { items: 3, brand: "also ok brand" },
+                  { items: 7, brand: "also another ok brand" },
+                ],
+              });
+        } else {
+          rej("Network error!!!");
+        }
+      }, 1500);
+      // clearTimeout(timer);
+    });
   };
 
   useEffect(() => {
-    const fetch = async function () {
-      console.log("wtf fetch");
-      const fetchedData = await fetchMockData;
-      if (fetchedData && fetchedData.status === 200 && fetchedData.data) {
-        setData(fetchedData.data);
-        setStatus("success");
-      } else {
-        console.log("errrrrrr");
-        console.log(fetchedData);
-        setError(fetchedData.error);
-        setStatus("error");
-      }
-    };
-    fetch();
-  }, [status]);
+    mockFetch()
+      .then((res) => {
+        console.log(res);
+        if (res.statusCode === 200) {
+          setStatus("success");
+          // would also unpack response object, res.json() /w another then() and promise consume if it was fetch api
+          setData(res.data);
+        } else {
+          setStatus("Error. Server responded with 500.");
+        }
+      })
+      .catch((err) => {
+        setStatus(`error`);
+        setData(err);
+      });
+  }, []);
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen">
-      {status === "loading" && <h1>Loading...</h1>}
-      {status === "error" && <h1>{error.message}</h1>}
-      {data && <h1>Data is here: TODO fill in data access</h1>}
+    <div className="h-screen w-screen grid place-content-center">
+      {status === "loading" && <p>Loading...</p>}
+      {status === "error" && <p>{data}</p>}
+      {status === "success" && (
+        <div>
+          <p>Success</p>
+          <div>{}</div>
+        </div>
+      )}
     </div>
   );
 };
