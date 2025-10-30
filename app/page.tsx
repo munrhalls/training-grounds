@@ -4,7 +4,9 @@ import TooltipFeature from "./Category 1 - Component Co-location and Encapsulati
 import RegistrationFormFeature from "./Category 1 - Component Co-location and Encapsulation/2. The Form-and-Submit Unit (Action Encapsulation)/TheFormAndSubmitUnit";
 
 import SelfContainedLoader from "./Category 1 - Component Co-location and Encapsulation/3. The Self-Contained Loader/SelfContainedLoader";
-import CancellableDataFetcher from "./Category 1 - Component Co-location and Encapsulation/4. The Click-to-Fetch Controlled Loader/ClickToFetchControllerLoader";
+import CancellableDataFetcher from "./Category 1 - Component Co-location and Encapsulation/advanced/4. The Click-to-Fetch Controlled Loader/ClickToFetchControllerLoader";
+
+import AutoResetButton from "./Category 1 - Component Co-location and Encapsulation/4. The Self-Owned Auto-Reset Button/SelfOwnedAutoResetButton";
 
 export default function Home() {
   return (
@@ -12,7 +14,8 @@ export default function Home() {
       {/* <TooltipFeature /> */}
       {/* <RegistrationFormFeature /> */}
       {/* <SelfContainedLoader /> */}
-      <CancellableDataFetcher />
+      {/* <CancellableDataFetcher /> */}
+      <AutoResetButton />
     </div>
   );
 }
