@@ -24,13 +24,16 @@ const AutoResetButton = function () {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    if (message === "Click to begin" && count === 0) return;
+
     let timeout;
     if (count > 0) {
-      setMessage("Reset in 2 seconds...");
       timeout = setTimeout(() => {
+        console.log("yo");
         setCount(0);
         setMessage("Ready. Resetted!");
       }, 2000);
+      setMessage("Reset in 2 seconds...");
     } else {
       setCount((prev) => prev + 1);
     }
