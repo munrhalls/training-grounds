@@ -24,26 +24,28 @@ const AutoResetButton = function () {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (message === "Click to begin" && count === 0) return;
-
     let timeout;
     if (count > 0) {
       timeout = setTimeout(() => {
-        console.log("yo");
         setCount(0);
         setMessage("Ready. Resetted!");
       }, 2000);
-      setMessage("Reset in 2 seconds...");
-    } else {
-      setCount((prev) => prev + 1);
     }
-    return clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [count]);
+
+  const handleClick = function () {
+    console.log("click");
+    setCount((prev) => prev + 1);
+    setMessage("Reset in 2 seconds...");
+  };
 
   return (
     <div className="h-screen w-screen flex flex-col space-y-8 justify-center items-center">
       <h1>Message: {message}</h1>
-      <button onClick={() => setCount((prev) => prev + 1)} className="cursor-pointer bg-blue-600 p-4 rounded-lg text-white font-black">
+      <button disabled={count > 0} onClick={handleClick} className="cursor-pointer bg-blue-600 p-4 rounded-lg text-white font-black">
         Click
       </button>
     </div>
