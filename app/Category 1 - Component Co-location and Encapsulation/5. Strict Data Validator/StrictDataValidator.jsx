@@ -43,57 +43,73 @@ const StrictDataValidator = function () {
   const [status, setStatus] = useState("loading");
   const [data, setData] = useState(null);
 
-  const mockFetch = async function () {
-    return new Promise((res, rej) => {
-      const timer = setTimeout(() => {
+  const mockFetch = function () {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
         const chance = Math.random();
-        if (chance >= 0.7) {
+
+        if (chance <= 0.7) {
           const chance2 = Math.random();
-          chance2 >= 0.5
-            ? res({ statusCode: 500 })
-            : res({
-                statusCode: 200,
-                data: [
-                  { items: 5, brand: "ok brand" },
-                  { items: 3, brand: "also ok brand" },
-                  { items: 7, brand: "also another ok brand" },
-                ],
-              });
+          if (chance2 >= 0.5) {
+            resolve({ statusCode: 500 });
+          } else {
+            resolve({
+              statusCode: 200,
+              data: [
+                { items: 5, brand: "cool" },
+                { items: 7, brand: "cool also" },
+                { items: 8, brand: "cool as well" },
+              ],
+            });
+          }
         } else {
-          rej("Network error!!!");
+          reject("Network error!!!");
         }
       }, 1500);
-      // clearTimeout(timer);
     });
   };
 
   useEffect(() => {
-    mockFetch()
-      .then((res) => {
-        console.log(res);
-        if (res.statusCode === 200) {
-          setStatus("success");
-          // would also unpack response object, res.json() /w another then() and promise consume if it was fetch api
-          setData(res.data);
-        } else {
-          setStatus("Error. Server responded with 500.");
+    const runFetch = async function () {
+      try {
+        const data = await mockFetch();
+        if (data.statusCode !== 200) {
+          throw Error("Error: Response status code 500");
         }
-      })
-      .catch((err) => {
-        setStatus(`error`);
+        setStatus("success");
+        setData(data);
+      } catch (err) {
+        console.log(err);
+        setStatus("error");
         setData(err);
-      });
+      }
+    };
+    runFetch();
   }, []);
 
   return (
     <div className="h-screen w-screen grid place-content-center">
       {status === "loading" && <p>Loading...</p>}
-      {status === "error" && <p>{data}</p>}
       {status === "success" && (
-        <div>
-          <p>Success</p>
-          <div>{}</div>
+        <div className="text-blue-500">
+          Data loaded successfully!{" "}
+          <div className="block">
+            {data.data.map((el) => {
+              return (
+                <div key={el.brand}>
+                  <label>{Object.keys(el)[0]}: </label>
+                  <span>{Object.values(el)[0]}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
+      )}
+      {status === "error" && (
+        <p className="text-red-500">
+          Error loading data.
+          <span className="block">{}</span>
+        </p>
       )}
     </div>
   );
