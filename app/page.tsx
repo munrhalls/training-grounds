@@ -11,6 +11,8 @@ import AutoResetButton from "./Category 1 - Component Co-location and Encapsulat
 import StrictDataValidator from "./Category 1 - Component Co-location and Encapsulation/5. Strict Data Validator/StrictDataValidator";
 
 import ControlledStateToggle from "./Category 1 - Component Co-location and Encapsulation/ControlledStateToggle";
+import AsyncTimeout from "./Category - Inside component basics/AyncTimeout";
+
 export default function Home() {
   return (
     <div>
@@ -20,7 +22,8 @@ export default function Home() {
       {/* <CancellableDataFetcher /> */}
       {/* <AutoResetButton /> */}
       {/* <StrictDataValidator /> */}
-      <ControlledStateToggle />
+      {/* <ControlledStateToggle /> */}
+      <AsyncTimeout initialDelay={3000} />
     </div>
   );
 }
