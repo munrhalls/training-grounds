@@ -10,6 +10,7 @@ import AutoResetButton from "./Category 1 - Component Co-location and Encapsulat
 
 import StrictDataValidator from "./Category 1 - Component Co-location and Encapsulation/5. Strict Data Validator/StrictDataValidator";
 
+import ControlledStateToggle from "./Category 1 - Component Co-location and Encapsulation/ControlledStateToggle";
 export default function Home() {
   return (
     <div>
@@ -18,7 +19,8 @@ export default function Home() {
       {/* <SelfContainedLoader /> */}
       {/* <CancellableDataFetcher /> */}
       {/* <AutoResetButton /> */}
-      <StrictDataValidator />
+      {/* <StrictDataValidator /> */}
+      <ControlledStateToggle />
     </div>
   );
 }
