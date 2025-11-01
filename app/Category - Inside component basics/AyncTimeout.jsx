@@ -55,6 +55,7 @@ function AyncTimeout({ initialDelay }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setCount((count) => count + 1);
+      console.log("This works. Why?");
     }, initialDelay);
 
     return () => clearTimeout(timer);

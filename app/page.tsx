@@ -13,6 +13,10 @@ import StrictDataValidator from "./Category 1 - Component Co-location and Encaps
 import ControlledStateToggle from "./Category 1 - Component Co-location and Encapsulation/ControlledStateToggle";
 import AsyncTimeout from "./Category - Inside component basics/AyncTimeout";
 
+import Todolist from "./Mini-projects/Todolist";
+
+import ComponentVsElement from "./Component vs Element/ComponentVsElement";
+
 export default function Home() {
   return (
     <div>
@@ -23,7 +27,9 @@ export default function Home() {
       {/* <AutoResetButton /> */}
       {/* <StrictDataValidator /> */}
       {/* <ControlledStateToggle /> */}
-      <AsyncTimeout initialDelay={3000} />
+      {/* <AsyncTimeout initialDelay={3000} /> */}
+      {/* <Todolist /> */}
+      <ComponentVsElement />
     </div>
   );
 }
