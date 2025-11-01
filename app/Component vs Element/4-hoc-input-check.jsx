@@ -6,5 +6,27 @@
 // TODO: Render <StyledComponent />
 
 export default function HocInputCheck() {
-  return <div></div>;
+  const MyComp = () => {
+    return <div>Original</div>;
+  };
+
+  const withStyle = (WrappedComp) => {
+    return (props) => {
+      return (
+        <div className="border-pink-700 border-2">
+          <WrappedComp {...props} />
+        </div>
+      );
+    };
+  };
+
+  const StyledMyComp = withStyle(MyComp);
+  return (
+    <div>
+      <StyledMyComp />
+      {/* {TODO withStyle(MyComp)} // Technically works*/}
+      {/* TODO Why you should NEVER do that? */}
+      {/* TODO What specific bad consequence happens because of that? */}
+    </div>
+  );
 }

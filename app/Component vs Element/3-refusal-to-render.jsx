@@ -5,5 +5,12 @@
 // Focus: Always use <Component /> not Component()
 
 export default function RefusalToRender() {
-  return <div></div>;
+  const Card = function () {
+    return <div>Card content</div>;
+  };
+  return (
+    <div>
+      <Card />
+    </div>
+  );
 }

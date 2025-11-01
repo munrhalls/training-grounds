@@ -18,6 +18,39 @@
 // TODO: comment the above, exercise and re-do it with the below additional instruciton
 // TODO: add button and counter feature via state hook to the ItemComp
 
+// DANGER // That still "works" - issue remain invisible
+// import { useState } from "react";
+
+// const ItemComp = function ({ item }) {
+//   const [count, addCount] = useState(0);
+
+//   return (
+//     <div className="p-4 border border-gray-300 m-2">
+//       Item ID: {item}
+//       <button onClick={() => addCount((prev) => prev + 1)} className="ml-4 p-2 bg-green-500 text-white rounded">
+//         Item Count: {count}
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default function ForbiddenFunctionCall() {
+//   const items = [1, 2, 3];
+//   const [parentCount, setParentCount] = useState(0);
+
+//   return (
+//     <div className="grid place-content-center h-screen w-screen">
+//       <button onClick={() => setParentCount((p) => p + 1)} className="mb-8 p-4 bg-red-500 text-white font-bold rounded">
+//         Force Parent Re-render ({parentCount})
+//       </button>
+
+//       <div className="flex">{items.map((item) => ItemComp({ item }))}</div>
+//     </div>
+//   );
+// }
+
+// DANGER REVEAL // Now the code crashes
+
 import { useState } from "react";
 
 const ItemComp = function ({ item }) {
@@ -34,13 +67,21 @@ const ItemComp = function ({ item }) {
 };
 
 export default function ForbiddenFunctionCall() {
-  const items = [1, 2, 3];
+  const initialItems = [1, 2, 3];
+  const [items, setItems] = useState(initialItems);
   const [parentCount, setParentCount] = useState(0);
+
+  const removeItem = () => {
+    setItems((prevItems) => prevItems.filter((item) => item !== 2));
+  };
 
   return (
     <div className="grid place-content-center h-screen w-screen">
-      <button onClick={() => setParentCount((p) => p + 1)} className="mb-8 p-4 bg-red-500 text-white font-bold rounded">
+      <button onClick={() => setParentCount((p) => p + 1)} className="mb-4 p-2 bg-blue-500 text-white font-bold rounded">
         Force Parent Re-render ({parentCount})
+      </button>
+      <button onClick={removeItem} className="mb-8 p-2 bg-red-500 text-white font-bold rounded">
+        Remove Item 2 (Structural Change)
       </button>
 
       <div className="flex">{items.map((item) => ItemComp({ item }))}</div>
