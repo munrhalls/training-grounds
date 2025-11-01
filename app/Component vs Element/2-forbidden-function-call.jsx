@@ -21,7 +21,7 @@
 import { useState } from "react";
 
 export default function ForbiddenFunctionCall() {
-  const ItemComp = function (item) {
+  const ItemComp = function ({ item }) {
     const [count, addCount] = useState(0);
 
     return (
