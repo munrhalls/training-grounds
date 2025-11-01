@@ -15,10 +15,16 @@ export default function Todolist() {
   };
 
   const toggleDone = function (id) {
-    const copy = [...list];
-    const task = copy.find((task) => task.id === id);
-    task.done = true;
-    setList((copy) => copy);
+    setList((prevList) => {
+      return prevList.map((task) => {
+        if (task.id === id)
+          return {
+            ...task,
+            done: true,
+          };
+        return task;
+      });
+    });
   };
 
   const addTask = function (e) {
@@ -30,7 +36,7 @@ export default function Todolist() {
       text: newTaskText,
     };
     const newList = [...list, newTask];
-    setList(() => newList);
+    setList(newList);
     setNewTaskText("");
   };
 
