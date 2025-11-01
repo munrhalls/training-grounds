@@ -5,5 +5,11 @@
 // Focus: Pass component reference, render with <props.renderMe />
 
 export default function RenderPropTest() {
-  return <div></div>;
+  const AnotherComp = () => <p>Dynamic content</p>;
+  const Renderer = (props) => <div>{props.comp}</div>;
+  return (
+    <div>
+      <Renderer comp={<AnotherComp />} />
+    </div>
+  );
 }
