@@ -20,19 +20,30 @@
 
 import { useState } from "react";
 
-export default function ForbiddenFunctionCall() {
-  const ItemComp = function ({ item }) {
-    const [count, addCount] = useState(0);
+const ItemComp = function ({ item }) {
+  const [count, addCount] = useState(0);
 
-    return (
-      <div>
-        {item}
-        <button onClick={() => addCount((prev) => prev + 1)} className="w-48 h-24 border-2 border-black">
-          {count}
-        </button>
-      </div>
-    );
-  };
+  return (
+    <div className="p-4 border border-gray-300 m-2">
+      Item ID: {item}
+      <button onClick={() => addCount((prev) => prev + 1)} className="ml-4 p-2 bg-green-500 text-white rounded">
+        Item Count: {count}
+      </button>
+    </div>
+  );
+};
+
+export default function ForbiddenFunctionCall() {
   const items = [1, 2, 3];
-  return <div className="grid place-content-center h-screen w-screen">{items.map((item) => ItemComp(item))}</div>;
+  const [parentCount, setParentCount] = useState(0);
+
+  return (
+    <div className="grid place-content-center h-screen w-screen">
+      <button onClick={() => setParentCount((p) => p + 1)} className="mb-8 p-4 bg-red-500 text-white font-bold rounded">
+        Force Parent Re-render ({parentCount})
+      </button>
+
+      <div className="flex">{items.map((item) => ItemComp({ item }))}</div>
+    </div>
+  );
 }
