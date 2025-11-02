@@ -22,6 +22,7 @@ import RenderPropTest from "./Component vs Element/5-render-prop-test";
 
 import DrillRun from "./Component vs Element/DrillCourse";
 import Todolist from "./Mini-projects/Todolist";
+import TodolistFindBug from "./Mini-projects/TodolistFindBug";
 
 export default function Home() {
   return (
@@ -42,7 +43,8 @@ export default function Home() {
       {/* <HocInputCheck /> */}
       {/* <RenderPropTest /> */}
       {/* <DrillRun /> */}
-      <Todolist />
+      {/* <Todolist /> */}
+      <TodolistFindBug />
     </div>
   );
 }
