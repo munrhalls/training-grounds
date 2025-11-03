@@ -5,21 +5,21 @@
 // TODO: Fix to RIGHT: const StyledComponent = withStyle(MyComponent);
 // TODO: Render <StyledComponent />
 
+const MyComp = () => {
+  return <div>Original</div>;
+};
+
+const withStyle = (WrappedComp) => {
+  return (props) => {
+    return (
+      <div className="border-pink-700 border-2">
+        <WrappedComp {...props} />
+      </div>
+    );
+  };
+};
+
 export default function HocInputCheck() {
-  const MyComp = () => {
-    return <div>Original</div>;
-  };
-
-  const withStyle = (WrappedComp) => {
-    return (props) => {
-      return (
-        <div className="border-pink-700 border-2">
-          <WrappedComp {...props} />
-        </div>
-      );
-    };
-  };
-
   const StyledMyComp = withStyle(MyComp);
   return (
     <div>

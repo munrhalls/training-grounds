@@ -17,12 +17,12 @@ import ComponentVsElement from "./Component vs Element/ComponentVsElement";
 import ValueVsCall from "./Component vs Element/1-value-vs-call";
 import ForbiddenFunctionCall from "./Component vs Element/2-forbidden-function-call";
 import RefusalToRender from "./Component vs Element/3-refusal-to-render";
-import HocInputCheck from "./Component vs Element/4-hoc-input-check";
 import RenderPropTest from "./Component vs Element/5-render-prop-test";
 
 import DrillRun from "./Component vs Element/DrillCourse";
 import Todolist from "./Mini-projects/Todolist";
 import TodolistFindBug from "./Mini-projects/TodolistFindBug";
+import HocInputCheck from "./HoC composition/HoCStabilityDrill";
 
 export default function Home() {
   return (
@@ -44,7 +44,8 @@ export default function Home() {
       {/* <RenderPropTest /> */}
       {/* <DrillRun /> */}
       {/* <Todolist /> */}
-      <TodolistFindBug />
+      {/* <TodolistFindBug /> */}
+      <HocInputCheck />
     </div>
   );
 }
