@@ -23,6 +23,8 @@ import DrillRun from "./Component vs Element/DrillCourse";
 import Todolist from "./Mini-projects/Todolist";
 import TodolistFindBug from "./Mini-projects/TodolistFindBug";
 import HocInputCheck from "./HoC composition/HoCStabilityDrill";
+import ReactHookForm from "./3rdPartyReact/ReactHookForm";
+import Interleaving from "./Interleaving/Interleaving";
 
 export default function Home() {
   return (
@@ -45,7 +47,9 @@ export default function Home() {
       {/* <DrillRun /> */}
       {/* <Todolist /> */}
       {/* <TodolistFindBug /> */}
-      <HocInputCheck />
+      {/* <HocInputCheck /> */}
+      {/* <ReactHookForm /> */}
+      <Interleaving />
     </div>
   );
 }
