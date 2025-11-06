@@ -11,13 +11,88 @@ import { useState } from "react";
 
 // 5. ChildButton: App renders ChildButton, passes label="Submit"
 
+// const Counter = function () {
+//   const [count, setCount] = useState(0);
+
+//   return (
+//     <div>
+//       <h1>{count}</h1>
+//       <button onClick={() => setCount((bla) => bla + 1)}>+</button>
+//     </div>
+//   );
+// };
+
+// Challenge 1: Console Output Prediction
+// const Counter = function () {
+//   const [count, setCount] = useState(0);
+//   console.log("RENDER:", count);
+
+//   return (
+//     <div>
+//       <h1>{count}</h1>
+//       <button onClick={() => setCount((bla) => bla + 1)}>+</button>
+//     </div>
+//   );
+// };
+
+// Challenge 3: The Triple Click Mystery
+// const Counter = function () {
+//   const [count, setCount] = useState(0);
+
+//   return (
+//     <div>
+//       <h1>{count}</h1>
+//       <button
+//         onClick={() => {
+//           setCount((c) => c + 1);
+//           setCount((c) => c + 1);
+//           setCount((c) => c + 1);
+//         }}
+//       >
+//         +3?
+//       </button>
+//     </div>
+//   );
+// };
+
+// Challenge 4: The Stale Console
+// const Counter = function () {
+//   const [count, setCount] = useState(0);
+//   console.log("RENDER:", count);
+
+//   return (
+//     <div>
+//       <h1>{count}</h1>
+//       <button
+//         onClick={() => {
+//           setCount((c) => c + 1);
+//           console.log("After setState:", count);
+//         }}
+//       >
+//         +
+//       </button>
+//     </div>
+//   );
+// };
+
+// Challenge 5: Conditional Increment
 const Counter = function () {
   const [count, setCount] = useState(0);
+  console.log("RENDER:", count);
 
   return (
     <div>
       <h1>{count}</h1>
-      <button onClick={() => setCount((bla) => bla + 1)}>+</button>
+      <button
+        onClick={() =>
+          setCount((blabla) => {
+            if (blabla < 10) return blabla + 1;
+            return blabla;
+          })
+        }
+      >
+        +
+      </button>
     </div>
   );
 };

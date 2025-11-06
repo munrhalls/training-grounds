@@ -1,0 +1,50 @@
+// Challenge 4: The Stale Console
+const Counter = function () {
+  const [count, setCount] = useState(0);
+  console.log("RENDER:", count);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button
+        onClick={() => {
+          setCount((c) => c + 1);
+          console.log("After setState:", count);
+        }}
+      >
+        +
+      </button>
+    </div>
+  );
+};
+
+Click happens → event handler runs
+setCount schedules an update (doesn't happen immediately)
+console.log runs in the same function execution with the old count value (closure)
+Event handler finishes
+THEN React re-renders with new count
+
+Yeah but it's not so much about closure here.
+
+If you passed the argument somehow (not closure) and executed the function somehow when the count was still 5 - even if the execution happened after setCount called that makes it 6 -it'd still render 5 because that's what the value of count was at the time it was called
+
+so it matted WHEN the function is called
+
+WHEN the console log runs, the count is STILL 5
+
+why
+
+because user clicks, at that point in time, the new function is created WHICH CREATES THE CLOSURE BY THE WAY
+
+so that function, after being created, also immedaitely runs
+
+and it so happens that it calls count update
+
+but then it continues its execution with its input arguments, including closure arguments
+
+which happens to be 5
+
+so its tht function just continuing its normal execution with its input arguments and its input argument was 5 so that's what it will print, and the fact that it called something that changes the count variable - well, it doesn't change the input closure argument of the created function so its still 5, it doesnt care about changes that dont affect its input change
+
+so closure input !== direct count variable
+closure input === direct count variable AT THE TIME OF ITS CREATION
