@@ -24,7 +24,7 @@ import Todolist from "./Mini-projects/Todolist";
 import TodolistFindBug from "./Mini-projects/TodolistFindBug";
 import HocInputCheck from "./HoC composition/HoCStabilityDrill";
 import ReactHookForm from "./3rdPartyReact/ReactHookForm";
-import Interleaving from "./Interleaving/Interleaving";
+import Interleaving from "./Interleaving/Interleaving - list one";
 
 export default function Home() {
   return (

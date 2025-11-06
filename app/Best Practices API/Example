@@ -1,0 +1,146 @@
+"use client";
+
+import { createContext, useContext, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+
+export type ShippingAddress = {
+  regionCode: string;
+  postalCode: string;
+  street: string;
+  streetNumber: string;
+  city: string;
+};
+// e.g.
+// {regionCode: 'EN', postalCode: 'EC1Y 8SY', street: 'Featherstone Street', streetNumber: '49', city: 'LONDON'}
+
+const CheckoutContext = createContext<any>(null);
+
+export function useCheckout() {
+  return useContext(CheckoutContext);
+}
+
+export default function CheckoutLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [shippingAPIValidation, setShippingAPIValidation] = useState(null);
+  const [shippingAddress, setShippingAddress] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user?.publicMetadata?.shippingAddress) {
+      router.push("/checkout/shipping/confirmation");
+    }
+  }, [user, router]);
+
+  const validateShipping = async (formData) => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/shipping", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      setShippingAPIValidation(data);
+
+      if (data.status === "CONFIRMED" || data.status === "PARTIAL") {
+        setShippingAddress(() => formData);
+        router.push("/checkout/shipping/confirmation");
+      } else {
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Error validating shipping address:", error);
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <CheckoutContext.Provider
+      value={{
+        shippingAPIValidation,
+        setShippingAPIValidation,
+        validateShipping,
+        isLoading,
+        shippingAddress,
+      }}
+    >
+      <div className="mx-auto max-w-4xl p-6">
+        <h1 className="mb-8 flex justify-center text-3xl font-black uppercase">
+          Checkout
+        </h1>
+        {children}
+      </div>
+    </CheckoutContext.Provider>
+  );
+}
+
+
+
+Please focus on this
+  if (data.status === "CONFIRMED" || data.status === "PARTIAL") {
+        setShippingAddress(() => formData);
+        router.push("/checkout/shipping/confirmation");
+      } else {
+        setIsLoading(false);
+      }
+
+
+I got info that it's totally ok and desired to leave the shipping with no clean up. As you can see, I think it
+
+
+
+
+
+
+
+That code snippet is not correct based on standard API best practices and should be fixed.
+
+The small next priority is to ensure you are setting the validated address data, not the original form data, in your state.
+
+The Priority Fix: Use Validated Data ⚠️
+The issue lies in this line: setShippingAddress(() => formData);
+
+When an API validates an address, it often cleans, standardizes, or corrects the user's input (e.g., correcting spelling, capitalizing city names, or adding
+
+
+
+
+
+
+
+
+
+
+That code snippet is not correct based on standard API best practices and should be fixed.The small next priority is to ensure you are setting the validated address data, not the original form data, in your state.The Priority Fix: Use Validated Data ⚠️The issue lies in this line: setShippingAddress(() => formData);When an API validates an address, it often cleans, standardizes, or corrects the user's input (e.g., correcting spelling, capitalizing city names, or adding missing postal codes).By using formData (the original, potentially messy user input), you discard the verified, clean data that the API just returned.StatusYou are doingYou should be doingProblemSetting the state with the user's raw input (formData).Setting the state with the API's standardized output (data.validatedAddress).ResultThe confirmation page displays the unvalidated address, which might have spelling errors or incorrect formatting.The confirmation page displays the clean, standardized address, increasing user trust.The Corrected Code BlockThe validateShipping function needs to assume the API response (data) contains the clean address object you want to display on the confirmation page.JavaScriptconst validateShipping = async (formData) => {
+  setIsLoading(true);
+  try {
+    const res = await fetch("/api/shipping", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    setShippingAPIValidation(data);
+
+    if (data.status === "CONFIRMED" || data.status === "PARTIAL") {
+      // FIX: Assuming the API response provides a validatedAddress object
+      if (data.validatedAddress) {
+        setShippingAddress(() => data.validatedAddress);
+      } else {
+        // Fallback if API returns no data, but status is CONFIRMED/PARTIAL
+        setShippingAddress(() => formData);
+      }
+      router.push("/checkout/shipping/confirmation");
+    } else {
+      setIsLoading(false);
+    }
+  } catch (error) {
+    console.error("Error validating shipping address:", error);
+    setIsLoading(false);
+  }
+};
+Smallest Next Priority Step:Update your API endpoint (/api/shipping) to ensure it always returns a validatedAddress object in the response body whenever the status is CONFIRMED or PARTIAL.Would you like me to suggest the structure of the API response JSON object needed for this fix?
