@@ -26,9 +26,12 @@ import HocInputCheck from "./HoC composition/HoCStabilityDrill";
 import ReactHookForm from "./3rdPartyReact/ReactHookForm";
 import Interleaving from "./Interleaving/Interleaving - list one";
 
+import { DataFetcher } from "./Component - useEffect and Async/UseEffectAndAsync";
+
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen grid place-content-center">
+      <DataFetcher />
       {/* <TooltipFeature /> */}
       {/* <RegistrationFormFeature /> */}
       {/* <SelfContainedLoader /> */}
@@ -49,7 +52,7 @@ export default function Home() {
       {/* <TodolistFindBug /> */}
       {/* <HocInputCheck /> */}
       {/* <ReactHookForm /> */}
-      <Interleaving />
+      {/* <Interleaving /> */}
     </div>
   );
 }

@@ -103,6 +103,7 @@ const Drill1_TypeVsValue = () => {
 
   // TODO: Write the correct import statement
   // Answer: import { ShippingAddress } from './types'
+  import { ShippingAddress } from "./types";
 
   return <div>Drill 1: Type imports must be named imports</div>;
 };
@@ -155,18 +156,8 @@ const Drill3_UnionTypes = () => {
 
   const renderStatus = (status: Status) => {
     // TODO: Return different messages for each status
-    // return (status === "success" && "ok") || (status === "loading" && "loading") || (status === "error" && "err");
+    return (status === "success" && "ok") || (status === "loading" && "loading") || (status === "error" && "err");
     // Don't use any if/else yet - just see TypeScript autocomplete the options
-    switch (status) {
-      case "loading":
-        return "load";
-      case "error":
-        return "err";
-      case "success":
-        return "ok";
-      default:
-        return "some other";
-    }
     return "Loading...";
   };
 
@@ -184,9 +175,6 @@ type ApiResponse =
   | {
       error: string;
     };
-// notice these are two types not one
-// they are both string value type inside - but these are two completely different types
-// no confusio
 
 const processResponse = (response: ApiResponse) => {
   // ❌ BAD: Can't access without checking
@@ -201,17 +189,13 @@ const processResponse = (response: ApiResponse) => {
 };
 
 // DRILL 4: Practice type narrowing
-export const Drill4_TypeNarrowing = () => {
+const Drill4_TypeNarrowing = () => {
   const getValue = (input: string | number) => {
     // TODO: If input is a number, return input * 2
     // TODO: If input is a string, return input.toUpperCase()
     // Use typeof to narrow the type
 
-    if (typeof input == "string") {
-      return input.toUpperCase();
-    } else {
-      return input * 2;
-    }
+    return input; // ❌ Fix this
   };
 
   return (
@@ -319,13 +303,13 @@ const Drill6_TypeConsistency = () => {
   };
 
   type UserProfile = {
-    age: string; // Database expects number
+    age: number; // Database expects number
   };
 
   const saveUser = (form: UserForm) => {
     // TODO: Convert form.age to number before saving
     const profile: UserProfile = {
-      age: form.age, // ❌ Fix this conversion
+      age: 0, // ❌ Fix this conversion
     };
 
     return profile;
@@ -375,7 +359,12 @@ const Drill7_OptionalChaining = () => {
     // ❌ BAD: Nested if checks
     // TODO: Rewrite using ?. operator
 
-    return order?.customer?.shipping?.city ?? "No city";
+    if (order.customer) {
+      if (order.customer.shipping) {
+        return order.customer.shipping.city;
+      }
+    }
+    return "No city";
   };
 
   return <div>Drill 7: {getCity({})}</div>;
@@ -427,7 +416,7 @@ const Drill8_NonNullAssertion = () => {
 
   const getApiKey = (config: Config) => {
     // ❌ Dangerous:
-    return config?.apiKey?.toUpperCase() ?? null;
+    return config.apiKey!.toUpperCase();
 
     // TODO: Rewrite to safely handle undefined case
   };

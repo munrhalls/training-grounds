@@ -1,0 +1,69 @@
+TypeScript Chaos in Checkout Feature:
+
+1. Context Type Mismatch
+   In layout.tsx:
+
+const CheckoutContext = createContext<CheckoutContextType | null>(null);
+
+Creates context that CAN be null
+Initial value is null
+But layout ALWAYS provides actual value in <Provider>
+Result: Type says "might be null" but runtime never is
+Why this pattern exists:
+
+Standard React pattern when context might not be provided
+But here, layout ALWAYS wraps children → context never null
+Unnecessary safety check
+
+const { validateShipping, isLoading, addressApiValidation, shippingAddress } = useCheckout();
+
+2. Consumer Type Conflicts
+   shipping/page.tsx:
+
+useCheckout() returns CheckoutContextType | null
+Destructuring assumes non-null
+TypeScript error: Can't destructure from potentially null value
+confirmation/page.tsx:
+
+const { addressApiValidation, shippingAddress } = useCheckout();
+if (addressApiValidation == null || shippingAddress == null) {
+
+    Same destructuring issue
+
+Then checks if values are null (not checking if context is null)
+Checking wrong thing
+
+3. Type Definition Mismatches
+   FormData vs ShippingAddress:
+
+// shipping/page.tsx FormData
+type FormData = {
+streetNumber: number; // ❌ number
+}
+
+// layout.tsx ShippingAddress
+export type ShippingAddress = {
+streetNumber: string; // ❌ string
+}
+
+DIFFERENT TYPES for same field
+React Hook Form uses number
+Context expects string
+Type collision 4. Unused Import
+shipping/page.tsx:
+
+import CheckoutContextType from "@/app/(store)/checkout/layout";
+
+Imports TYPE as default (wrong - it's named export)
+Never used in file
+Dead code
+
+Summary:
+The mess:
+
+Context typed as nullable but never actually null
+Consumers destructure without handling null case
+Form field types don't match context types (number vs string)
+Checking wrong nulls (checking data, not context)
+Dead import
+Root cause: Standard context pattern applied where not needed + type inconsistencies between form and context.
