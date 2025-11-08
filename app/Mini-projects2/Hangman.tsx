@@ -55,36 +55,36 @@ export default function Hangman() {
     setGameWord(gameWord);
   }, []);
 
+  const handleTurn = function () {};
+
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const letter = e?.target?.value || null;
-    if (!letter) return;
-    const isAlreadyTriedLetter = record.filter((el) => el === letter).length > 0;
+    const isAlreadyTriedLetter = record.filter((el) => el === nextLetter).length > 0;
 
     if (isAlreadyTriedLetter) {
       setError("You already tried that letter. Try another one.");
     } else {
       setError("");
-      const newRecord = [...record, letter];
+      const newRecord = [...record, nextLetter];
       updateRecord(newRecord);
-      console.log(record);
     }
   };
 
-  const handleInput = function (e: React.ChangeEvent) {
+  const handleInput = function (e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
 
     const input = e?.target?.value ?? "";
     const letter = input.length ? input.charAt(input.length - 1) : input;
-    setNextLetter(letter);
+    const formattedLetter = letter.toUpperCase();
+    setNextLetter(formattedLetter);
   };
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="flex gap-2">
-        Attempted:
-        {record.map((index, letter) => (
-          <span className="font-black" key={index * 2 + letter}>
+        <div>Attempted:</div>
+        {record.map((letter, index) => (
+          <span className="font-black" key={letter + index + "-record"}>
             {letter}
           </span>
         ))}
@@ -116,7 +116,7 @@ export default function Hangman() {
         </div>
       </div>
       <div className="mt-12 flex flex-nowrap justify-center w-full gap-3 sm:gap-10 text-2xl sm:text-3xl">
-        {letters.map((index, letter) => {
+        {letters.map((letter, index) => {
           return (
             <span key={index + letter} className="underline w-3">
               {letter}
