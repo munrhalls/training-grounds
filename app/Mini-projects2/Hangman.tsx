@@ -1,15 +1,10 @@
-// start 8.11.2025 16;25
-
 export default function Hangman() {
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <div className="relative w-full h-3/5">
-        <div className="-translate-y-24 translate-x-4 absolute top-0 right-0 w-96 h-4 flex flex-row items-end">
-          <div className="translate-x-4 bg-black h-4 w-1/2 origin-bottom-right -rotate-30"></div>
-          <div className="bg-black h-4 w-1/2 origin-bottom-left rotate-30"></div>
-        </div>
-
-        <div className="absolute top-0 bottom-0 right-1/5 w-4 bg-black"></div>
+    <div className="h-screen flex flex-col items-center justify-center">
+      <div className="h-4/5 w-full max-w-sm relative">
+        <div className="absolute bottom-0 h-full w-4 left-1/4 -translate-x-1/2 bg-black"></div>
+        <div className="absolute top-0 h-4 w-2/4 left-1/4 -translate-x-2 bg-black"></div>
+        <div className="absolute top-0 h-16 w-2 right-1/4 mr-2 bg-black"></div>
       </div>
     </div>
   );
