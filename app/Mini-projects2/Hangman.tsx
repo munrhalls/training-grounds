@@ -45,6 +45,8 @@ export default function Hangman() {
   const [partsLeft, setPartsLeft] = useState(6);
   const [nextLetter, setNextLetter] = useState("");
   const [gameWord, setGameWord] = useState("");
+  const [record, updateRecord] = useState<string[]>([]);
+  const [error, setError] = useState("");
 
   const letters = gameWord.split("");
 
@@ -52,11 +54,24 @@ export default function Hangman() {
     const gameWord = getRandomWordFromList();
     setGameWord(gameWord);
   }, []);
-  const handleSubmit = function (e: MouseEvent) {
+
+  const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const letter = e?.target?.value || null;
+    if (!letter) return;
+    const isAlreadyTriedLetter = record.filter((el) => el === letter).length > 0;
+
+    if (isAlreadyTriedLetter) {
+      setError("You already tried that letter. Try another one.");
+    } else {
+      setError("");
+      const newRecord = [...record, letter];
+      updateRecord(newRecord);
+      console.log(record);
+    }
   };
 
-  const handleInput = function (e: React.ChangeEvent<HTMLInputElement>) {
+  const handleInput = function (e: React.ChangeEvent) {
     e.preventDefault();
 
     const input = e?.target?.value ?? "";
@@ -66,6 +81,14 @@ export default function Hangman() {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
+      <div className="flex gap-2">
+        Attempted:
+        {record.map((index, letter) => (
+          <span className="font-black" key={index * 2 + letter}>
+            {letter}
+          </span>
+        ))}
+      </div>
       <div className="my-4 flex gap-3  justify-center items-center">
         <h1 className="font-black flex flex-col">
           <span>Your next</span>
@@ -101,6 +124,7 @@ export default function Hangman() {
           );
         })}
       </div>
+      {error && <div className="flex justify-center my-2 text-sm text-red-500 font-semibold">{error}</div>}
     </div>
   );
 }
