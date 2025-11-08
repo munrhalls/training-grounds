@@ -1,11 +1,54 @@
 import { useState } from "react";
 
+const randomWordsList: string[] = [
+  "PYTHON",
+  "JAVASCRIPT",
+  "TAILWIND",
+  "REACT",
+  "COMPUTER",
+  "PROGRAMMING",
+  "DATABASE",
+  "ALGORITHM",
+  "FUNCTION",
+  "VARIABLE",
+  "DEBUGGING",
+  "SYNTAX",
+  "BOOLEAN",
+  "CONSOLE",
+  "NETWORK",
+  "HARDWARE",
+  "SOFTWARE",
+  "DEVELOPER",
+  "INTERFACE",
+  "COMPILER",
+  "ROUTER",
+  "FIREWALL",
+  "SERVER",
+  "MEMORY",
+  "STORAGE",
+  "CYBER",
+  "WIDGET",
+  "PROTOCOL",
+  "API",
+  "CLOUD",
+];
+
+const getRandomWordFromList = function (): string {
+  const length = randomWordsList.length;
+  const num = Math.floor(Math.random() * length);
+  const word = randomWordsList[num];
+  return word;
+};
+
 export default function Hangman() {
   const [partsLeft, setPartsLeft] = useState(6);
 
+  const gameWord = getRandomWordFromList();
+  const letters = gameWord.split("");
+
   return (
     <div className="h-screen flex flex-col items-center justify-center">
-      <div className="h-2/5 w-full max-w-sm relative">
+      <div className="h-2/5 w-full max-w-md relative">
         <div className="absolute bottom-0 h-full w-4 left-1/4 -translate-x-1/2 bg-black"></div>
         <div className="absolute top-0 h-4 w-2/4 left-1/4 -translate-x-2 bg-black"></div>
         <div className="absolute top-0 h-16 w-2 right-1/4 mr-2 bg-black"></div>
@@ -18,6 +61,15 @@ export default function Hangman() {
           <div className={`${!(partsLeft < 5) && "hidden"} absolute top-36 h-16 w-4 bg-black origin-top-right rotate-45 -right-1`}></div>
           <div className={`${!(partsLeft < 6) && "hidden"} absolute top-36 h-16 w-4 bg-black origin-top-left -rotate-45 -left-1`}></div>
         </div>
+      </div>
+      <div className="mt-12 flex flex-nowrap justify-center w-full gap-3 sm:gap-10 text-2xl sm:text-3xl">
+        {letters.map((index, letter) => {
+          return (
+            <span key={index + letter} className="underline w-3">
+              {letter}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
