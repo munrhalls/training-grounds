@@ -27,11 +27,13 @@ import ReactHookForm from "./3rdPartyReact/ReactHookForm";
 import Interleaving from "./Interleaving/Interleaving - list one";
 
 import { DataFetcher } from "./Component - useEffect and Async/UseEffectAndAsync";
+import Hangman from "./Mini-projects2/Hangman";
 
 export default function Home() {
   return (
     <div className="min-h-screen grid place-content-center">
-      <DataFetcher />
+      <Hangman />
+      {/* <DataFetcher /> */}
       {/* <TooltipFeature /> */}
       {/* <RegistrationFormFeature /> */}
       {/* <SelfContainedLoader /> */}
