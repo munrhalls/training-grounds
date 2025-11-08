@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 
 const randomWordsList: string[] = [
   "PYTHON",
@@ -42,12 +43,41 @@ const getRandomWordFromList = function (): string {
 
 export default function Hangman() {
   const [partsLeft, setPartsLeft] = useState(6);
+  const [nextLetter, setNextLetter] = useState("");
+  const [gameWord, setGameWord] = useState("");
 
-  const gameWord = getRandomWordFromList();
   const letters = gameWord.split("");
+
+  useEffect(() => {
+    const gameWord = getRandomWordFromList();
+    setGameWord(gameWord);
+  }, []);
+  const handleSubmit = function (e: MouseEvent) {
+    e.preventDefault();
+  };
+
+  const handleInput = function (e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+
+    const input = e?.target?.value ?? "";
+    const letter = input.length ? input.charAt(input.length - 1) : input;
+    setNextLetter(letter);
+  };
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
+      <div className="my-4 flex gap-3  justify-center items-center">
+        <h1 className="font-black flex flex-col">
+          <span>Your next</span>
+          <span>GUESS:</span>
+        </h1>
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <input type="text" className="uppercase border-2 w-16 h-16 border-black p-3 text-center" placeholder="..." value={nextLetter} onChange={(e) => handleInput(e)} />
+          <button type="submit" className="border-2 border-black rounded-lg mt-2 cursor-pointer">
+            Submit
+          </button>
+        </form>
+      </div>
       <div className="h-2/5 w-full max-w-md relative">
         <div className="absolute bottom-0 h-full w-4 left-1/4 -translate-x-1/2 bg-black"></div>
         <div className="absolute top-0 h-4 w-2/4 left-1/4 -translate-x-2 bg-black"></div>
