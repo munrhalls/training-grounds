@@ -31,7 +31,7 @@ import Hangman from "./Mini-projects2/Hangman";
 
 export default function Home() {
   return (
-    <div className="min-h-screen grid place-content-center">
+    <div className="h-screen">
       <Hangman />
       {/* <DataFetcher /> */}
       {/* <TooltipFeature /> */}
