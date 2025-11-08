@@ -1,0 +1,185 @@
+'use strict';
+
+import { WriteStream, createWriteStream } from "fs";
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
+
+let inputString: string = '';
+let inputLines: string[] = [];
+let currentLine: number = 0;
+
+process.stdin.on('data', function(inputStdin: string): void {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', function(): void {
+    inputLines = inputString.split('\n');
+    inputString = '';
+
+    main();
+});
+
+function readLine(): string {
+    return inputLines[currentLine++];
+}
+
+/*
+ * Complete the 'countingValleys' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER steps
+ *  2. STRING path
+ */
+
+
+// first wrong logic -> tons of time
+// then, didn't notice that .split(" ") created a single word array, not array of letters -> tons of time
+// then finally, didn't notice that I check step === 'UP' ? level++ : level-- INSTEAD OF "U"
+// refactor attempt  -        const step = pathArr[i];
+        // if (level + 1 === 0) count++;
+        // step === 'U' ? level++ : level-- little time but still shows banals/primitives to hone in on
+
+
+function countingValleys(steps: number, path: string): number {
+    // store count var
+    // store level
+
+    // loop for < path.length
+    // per each step check
+        // if level === 0 && step === D, count++
+        // update level
+        // if D -- else ++
+
+    let count = 0;
+    let level = 0;
+    let pathArr = path.split("");
+
+
+    for (let i = 0; i < pathArr.length; i++) {
+
+        const step = pathArr[i];
+        const prev = level;
+        step === 'U' ? level++ : level--;
+        if (prev === -1 && level === 0) count++;
+    }
+
+    return count
+}
+
+function main() {
+    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+
+    const steps: number = parseInt(readLine().trim(), 10);
+
+    const path: string = readLine();
+
+    const result: number = countingValleys(steps, path);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+
+
+'use strict';
+
+import { WriteStream, createWriteStream } from "fs";
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
+
+let inputString: string = '';
+let inputLines: string[] = [];
+let currentLine: number = 0;
+
+process.stdin.on('data', function(inputStdin: string): void {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', function(): void {
+    inputLines = inputString.split('\n');
+    inputString = '';
+
+    main();
+});
+
+function readLine(): string {
+    return inputLines[currentLine++];
+}
+
+/*
+ * Complete the 'countingValleys' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER steps
+ *  2. STRING path
+ */
+
+
+// first wrong logic -> tons of time
+// then, didn't notice that .split(" ") created a single word array, not array of letters -> tons of time
+// then finally, didn't notice that I check step === 'UP' ? level++ : level-- INSTEAD OF "U"
+// refactor attempt  -        const step = pathArr[i];
+        // if (level + 1 === 0) count++;
+        // step === 'U' ? level++ : level-- little time but still shows banals/primitives to hone in on
+
+
+function countingValleys(steps: number, path: string): number {
+    // store count var
+    // store level
+   
+    // loop for < path.length
+    // per each step check
+        // if level === 0 && step === D, count++
+        // update level
+        // if D -- else ++
+   
+    let count = 0;
+    let level = 0;
+    let pathArr = path.split("");
+
+   
+    for (let i = 0; i < pathArr.length; i++) {
+       
+        const step = pathArr[i];
+        const prev = level;
+        step === 'U' ? level++ : level--;
+        if (prev === -1 && level === 0) count++;
+    }
+   
+    return count
+}
+
+function main() {
+    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+
+    const steps: number = parseInt(readLine().trim(), 10);
+
+    const path: string = readLine();
+
+    const result: number = countingValleys(steps, path);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+
+
+
+This took me 50 minutes.
+Please note the 4 wastes of time.
+Examine core banals/primitives missing or misunderstood in my thought process and overall process. Make a neat list.
+
+First of all - I had a little bit of assumption that harmed my alertness via some subtle judgement - that it is the simplest exercise so I should be able to very easily blaze through it.
+
+Take notice how first, I actually did BAD logic assumption where I unawares ignored a possibility and jumped to conclusion that counting valleys must equal scenario where level -1 turns to 0 so I only need to catch 1 type of situation, when that wasn't properly organizing possibilities
+
+Notice similar thinking omissions and weaknesses
+
+
+
+Primitive Concept,Issue Observed,Improvement Focus
+Pre-Coding Analysis (The 5-Minute Rule),The initial overconfidence led to diving into code before solidifying the logic.,"Discipline: Before writing the first line of code, spend 5 minutes (for simple problems) writing down the state changes and edge cases. For this problem, write: ""Start: Level=0. Valley begins when Level goes from 0 to -1. Valley ends/counts when Level goes from -1 to 0."" This step would have prevented the logic error."
+Debugging Methodology,"The four time wastes show a non-linear, trial-and-error debugging approach.","Systematic Elimination: When a test fails, do not immediately assume the logic is wrong. First, check the primitives: 1. Input (Is the array correctly split?), 2. Comparison (Is 'U' correct?), 3. State Update (Are level++ and level-- working?). Only then should you question the core logic."
+
