@@ -27,12 +27,12 @@ import ReactHookForm from "./3rdPartyReact/ReactHookForm";
 import Interleaving from "./Interleaving/Interleaving - list one";
 
 import { DataFetcher } from "./Component - useEffect and Async/UseEffectAndAsync";
-import Hangman from "./Mini-projects2/Hangman";
+import Hangman_Revisited from "./Mini-projects2/Hangman_Revisited";
 
 export default function Home() {
   return (
     <div className="h-screen">
-      <Hangman />
+      <Hangman_Revisited />
       {/* <DataFetcher /> */}
       {/* <TooltipFeature /> */}
       {/* <RegistrationFormFeature /> */}
