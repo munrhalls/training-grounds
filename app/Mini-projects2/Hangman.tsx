@@ -69,7 +69,7 @@ export default function Hangman() {
       updateRecord(newRecord);
     }
   };
-
+  // day start
   const handleInput = function (e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
 
