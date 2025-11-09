@@ -1,0 +1,19 @@
+#### Understanding before action
+
+### The problem is ambiguous? Stop trying to understsanding, stop planning, stop solving. stop. Ask a question.
+
+### Familiarity is the enemy of understanding
+
+### When your brain tries to take a shortcut and you're not looking...THAT'S WHEN YOU LOST
+
+Because the problem looked simple and familiar ("classic input out f"), your brain skipped the rest of Step 1 (Understand) and jumped to a known pattern in Step 2 (Plan). Your "plan" (split, iterate, add to res) assumes the answers to Step 1 questions you hadn't even asked yet:
+
+    What about "John" (one name)?
+
+    What about "" (empty string)?
+
+    What about "john smith" (lowercase)?
+
+    What about "John Smith" (double spaces)? Your plan would fail on 3 out of 4 of those. You hadn't finished understanding the problem, but you were already planning a solution.
+
+### Understand the general case, not just the specific example.

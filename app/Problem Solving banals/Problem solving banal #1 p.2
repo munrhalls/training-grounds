@@ -1,0 +1,368 @@
+Drill: Depth on "Step 1: Understand"
+Here are 3 new, low-friction problems. Your task is not necessarily to solve them, but to post your immediate first thoughts, just as you did in your log. What questions do you have? What are the inputs/outputs? What are the constraints? What do you not know?
+
+Exercise 1
+
+A function calculate_bonus(level, score) returns a user's bonus. A user is level 10 with a score of 500. The bonus is calculated by multiplying the score by the level's bonus modifier. What is the bonus?
+
+Exercise 2
+
+A function get_initials(full_name) takes a string as input (e.g., "George Raymond Richard Martin") and should return a string of that name's initials (e.g., "G.R.R.M.").
+
+What is your plan (pseudocode)?
+
+Exercise 3
+
+A message must be sent in packets. Each packet has a maximum size of 100 bytes. The first 4 bytes of every packet are reserved for a "header" and cannot be used for the message data.
+
+How many packets do you need to send a message that is 193 bytes long?
+
+
+Exercise 1
+// first thoughts - stopping to look at inputs...let it sink in for a brief moment...
+// just note data, that will lead to questions
+
+// data
+// return is bonus - is it number? string? safe enough to assume it's number
+// bonus = score * level // NO. it's score * level's bonus modifier, is that the same as level?
+// CAREFUL!!!
+
+// vs past problems
+- looks similar to just some small tiny function that calcs something in db
+
+// vs similar
+- it's like basic modular f, input output
+
+// i am too unsure about level's bonus modifier to just return answer, that would have to be clarified and confirmed 1st
+
+
+
+Exercise 2
+// ok...that's just classic input out f...gotta be careful about transforms...
+
+// similar problems before...str transforms...nothing, i remember just to be careful /w it and confirm methods, must check
+
+// past xp
+- go in steps, no batch many-at-once, very gradual
+
+// what is this about?
+- get string return some other string
+- get str full name, return initials
+
+// confirms needed
+- is it always proper full names? /safe enough to continue
+- is it always "clean" or is it someetimes with some other data?
+- input is string /ok, safe enough, no need to ask if its object etc
+- IMPORTANT - is it always separated by space? or can it sometimes not be? if not, is it always camel case?
+
+// data
+- I get one string with name elements
+- return string that is initial per element with dot after each (including last letter)
+- initial = capital first letter of name element
+
+// what am i looking for
+- i need a safe way to turn string into its name elements so i can iterate
+- a safe way to extract first letter per name
+- a safe way to transform it into string of initials and return it
+- in short: safe transformation process, step by step
+
+// what do i know
+- i know input = string of names
+- i know how to split string by e.g. space
+- i know how to extract first letter from a string
+- i know how to iterate array of strings
+- i know how to update stored variable
+- i know how to return stored variable
+- i know output = initials of names
+
+// how do the two fit together - actually, that just turned out to be full plan somehow (too early? prolly..what if problem was more complex? did i mix up thinking steps here?)
+- i need to take str, split it and iterate element by element
+- i need to store res
+- per element, extract first letter, add dot to it, add it to res
+- return res after
+
+Exercise 3
+// first thoughts - ok this is classic how many time some x fits in some y container
+// this problem is about careful reading and checking boundaries and proper start end points and proper calc method
+// it's also about checking my assumptions and not missing anything
+
+// data
+- sending amount of data in packets
+- max size packet 100 bytes
+- every packet = 4 bytes for header, unavailable
+- return min packets needed to send 193 bytes
+
+// what am i looking for
+- determine formula to calculate it properly
+- triple check to make sure
+- carefully check condition and start end etc
+
+// what do i know
+- i know how to calc by 100
+- i know how to modify one calc op by constraints
+
+// how do the two fit together
+- i know how to make one step
+- then 2nd step
+- then combine the two
+- then iterate
+
+// input - 193 bytes long message
+// how many packets are needed?
+// maximum size = 100 bytes per packet
+
+// how to calc it?
+// simple example + derive rule
+
+// 1 message = 100 -4 = 96 bytes max, 4 for headers
+// 2 messages = 96 * 2 = 192 bytes max
+// 3 messages = 96 * 3 = ... irrelevant for the task
+
+// no need to derive full rule, if there would be - would proceed with above
+// instead, it's clearly evident that the answer is
+// 193 bytes require 3 packets to be sent
+// proof: 1 message = 96 bytes max, 2 messages max 192 bytes, therefore...must send 3rd to send all 193 bytes
+
+
+This is an excellent log. Your self-analysis is the most valuable part of this practice.
+
+You are correctly identifying the exact moment your brain tries to take a shortcut. This is the entire goal.
+
+Evaluation of Your Drills
+This log is highly effective. It reveals two new, more subtle "banals" you are violating.
+
+Exercise 1: (Bonus)
+
+Result: 10/10. Perfect execution.
+
+Analysis: The problem was ambiguous. You read it, spotted the ambiguity ("level's bonus modifier" vs "level"), and correctly identified your only next action: Ask a question. You did not plan. You did not solve. You stopped. This is a perfect pass.
+
+Exercise 2: (Initials)
+
+Result: A partial failure, but with a 10/10 self-analysis.
+
+Analysis: Your analysis is dead-on: "(too early? prolly..what if problem was more complex? did i mix up thinking steps here?)".
+
+The Banal You Violated: Familiarity is the enemy of Understanding.
+
+Because the problem looked simple and familiar ("classic input out f"), your brain skipped the rest of Step 1 (Understand) and jumped to a known pattern in Step 2 (Plan). Your "plan" (split, iterate, add to res) assumes the answers to Step 1 questions you hadn't even asked yet:
+
+What about "John" (one name)?
+
+What about "" (empty string)?
+
+What about "john smith" (lowercase)?
+
+What about "John Smith" (double spaces)? Your plan would fail on 3 out of 4 of those. You hadn't finished understanding the problem, but you were already planning a solution.
+
+Exercise 3: (Packets)
+
+Result: A complete failure of the process, despite getting the right answer.
+
+Analysis: This is the most subtle and important failure. You got the right answer (3), which is irrelevant to this practice.
+
+The Banal You Violated: Understand the general case, not just the specific example.
+
+You solved an arithmetic problem (f(193)), not a problem-solving problem (f(x)).
+
+You calculated: 1 * 96 = 96. 2 * 96 = 192. 193 > 192, so, 3.
+
+You did not understand the general problem. The real problem is finding the rule. The rule is: Payload = Packet_Size - Header = 100 - 4 = 96. The formula is: Packets_Needed = Ceiling(Message_Size / 96).
+
+By saying "no need to derive full rule," you skipped the entire problem-solving part and just did math. You didn't find the pattern; you just found a number.
+
+
+
+
+
+
+
+
+
+
+
+
+Drill: Depth on New Flaws
+We are staying on "Step 1: Understand" because you've just uncovered these two new, critical flaws. We must drill them.
+
+Exercise 1 (Test for: "Familiarity Trap")
+
+A function get_average_word_length(sentence) takes a string and returns the average length of all words.
+
+What are your Step 1 questions and edge cases? Do not plan a solution.
+
+Exercise 2 (Test for: "General Case Trap")
+
+You are stacking cannonballs in a square pyramid.
+
+A 1-layer pyramid takes 1 ball.
+
+A 2-layer pyramid takes 5 balls (a 2x2 base + 1 on top).
+
+A 3-layer pyramid takes 14 balls (a 3x3 base + a 2x2 layer + 1 on top).
+
+How many cannonballs are in a 4-layer pyramid?
+
+
+
+
+
+Exercise 1
+// tentative overview
+- all i know is that it takes A STRING
+- but what string?
+- can it be any string?
+- does it have string numbers in it or only proper alphabetic word characters?
+- does it have spaces? are they always regular between words?
+- if a word has extra characters in it, e.g. underscore, does it count or not?
+- do repeated words count?
+- things like "and" and other connectors also count as words?
+- what about ""?
+- what about "                                          "?
+- what about "                                some word                   "?
+- what about any other like strings?
+
+// WAIT
+- I assumed it matters that there are extra characters..maybe not? i mean words are words, whether i need to strip them of extra characters or not is another issue?
+- no, not really - that'd be another problem entirely
+- input is sentence - if it's not, this is not a problem to solve now
+- only solve this problem if input actually is sentence, confirmed
+- well what is sentence, then? is the string always proper sentence?
+
+// what am i looking for
+- unless i confirm the above, nothing
+- let's say i did - it's a pattern of taking all the words lengths stripped of anything extra, aggregating them and dividing that by the total number of words to get average length and returning that
+- but also what about rounding it up?
+
+
+
+Exercise 2
+// i can instantly recognize what this is about - i need to find equation, not just return specific manually calc'd answer
+
+// but to train process
+// what is this about
+- it's taking a few instances and deriving GENERAL CASE - pattern - out of it - an equation
+
+// what am i looking for
+- take simple instance
+- carefully generalize, point by point
+- check each point; check generalization
+
+// what do i know
+- 1 layer = 1 ball
+- 2 layers = 5 balls
+- so +1 layer added 4 balls
+- 3 layers = 14 balls
+- so +1 layer added 9 balls
+
+- 1 layer = just top
+- +1 layer = 2x2 base + 1 on top
+- +1 layer = 3x3 base + 2x2 layer + 1 top
+
+- +1 layer = (n+1)x(n+1) base + nxn layer ... + 1 top
+
+input = number of layers
+
+f(1)
+0 + 0 + 1 = 1
+f(2)
+2x2 + 1 = 5
+
+- it's f(input)
+
+// generalizing
+- f(input)
+--->
+return input * input + (input - 1 x input - 1) + .... + 1
+
+
+f(4)
+4 x 4 + 3 x 3 + 2 x 2 + 1 =
+16 + 9 + 4 + 1 = 30
+
+proof:
+base = 4x4
++ 3x3
++ 2x2
++ 1
+
+proof:
+f(3)
+3x3 + 2x2 + 1
+9 + 4 + 1 = 14
+
+
+
+
+
+
+
+
+Evaluating Progress
+
+I'm currently analyzing the user's request. I see they're submitting deliberate practice logs, specifically for two exercises. My goal is to determine the best method of summarizing this data, taking into account that the user is an expert in their field. I'm focusing on extracting relevant information to generate a concise and useful update.
+
+Assessing Exercise Logs
+
+I'm now evaluating Exercise 1, focusing on the "Familiarity Trap." The user's initial questions show a good understanding, but I'm checking if Step 1 was thorough. I'm noting the exploration of edge cases, but I'll need to dig deeper into the actual understanding achieved. The goal is to see if the user truly grasped the problem's nuances, not just superficially. I'm aiming for a coach-like perspective, offering feedback on how well the "Understand" step was internalized.
+
+Reviewing Understanding Depth
+
+I've just finished reviewing the user's Step 1 for the average word length exercise. Honestly, it was flawless. They aggressively challenged assumptions and explored edge cases exhaustively, resisting the urge to jump to a solution. The self-correction regarding the problem's scope was particularly impressive, demonstrating a deep commitment to understanding the problem before attempting to solve it. This level of diligence in Step 1 bodes well. I'll move on to analyzing Exercise 2 shortly.
+
+Recognizing the "Banals"
+
+I'm now thoroughly examining the average word length exercise. I'm incredibly impressed. The user not only avoided the "Familiarity Trap" but, more importantly, demonstrated a remarkable ability to define the problem's scope. They aggressively challenged assumptions and meticulously explored edge cases before even considering a solution. This showcases a mature understanding of deliberate practice principles. They're on the right track!
+
+Reviewing Deliberate Practice
+
+I've just finished a complete review of both exercises. The user has demonstrated a solid grasp of Step 1: Understand, especially in the average word length exercise, where they meticulously explored edge cases and challenged assumptions. The second exercise, cannonball stacking, showcased their ability to derive general solutions instead of getting fixated on specific answers. This excellent performance indicates effective deliberate practice!
+
+Analyzing Logs & Plans
+
+I'm now integrating the user's outstanding performance on exercises. It's clear they've mastered Step 1, particularly in resisting premature planning. The focus now shifts to devising robust plans (Step 2). I'm looking at how best to introduce a challenge to exercise the next skill.
+
+Reviewing Deliberate Practice
+
+I've just finished a complete review of both exercises. The user has demonstrated a solid grasp of Step 1: Understand, especially in the average word length exercise, where they meticulously explored edge cases and challenged assumptions. The second exercise, cannonball stacking, showcased their ability to derive general solutions instead of getting fixated on specific answers. This excellent performance indicates effective deliberate practice!
+
+Analyzing Logs & Plans
+
+I'm now integrating the user's outstanding performance on exercises. It's clear they've mastered Step 1, particularly in resisting premature planning. The focus now shifts to devising robust plans (Step 2). I'm looking at how best to introduce a challenge to exercise the next skill.
+
+Assessing Practice Progress
+
+The user's progress is excellent. They've demonstrated masterful control over the "Understand" phase. The average word length exercise showcased a deep dive, challenging assumptions rigorously. Similarly, the cannonball problem highlighted their ability to identify and derive the general solution. Their disciplined approach to Step 1 bodes well. Next, I'll introduce a new exercise.
+
+
+
+
+
+
+
+
+
+This is a 10/10 practice log. Your analysis of your own process is now faster and more accurate than your initial instinct, which is the entire goal.
+
+Evaluation of Your Drills
+Exercise 1 (Average Word Length)
+
+Result: Perfect Pass.
+
+Analysis: You successfully and completely resisted the "Familiarity Trap." This problem looks simple (like sentence.split(' ')), but you immediately generated a list of critical Step 1 questions ("what about ''?", "string numbers in it?", "underscore, does it count?") that break that naive assumption.
+
+Key Moment: Your question "well what is sentence, then?" is the perfect summary of Step 1. You refused to proceed without a clear definition of the input. You even caught yourself planning ("let's say i did...") and correctly identified it as a hypothetical.
+
+Exercise 2 (Cannonballs)
+
+Result: Perfect Pass.
+
+Analysis: You immediately identified the "General Case Trap," stating, "i need to find equation, not just return specific manually calc'd answer".
+
+Key Moment: You didn't just solve for f(4). You derived the general formula (f(n) = n^2 + (n-1)^2 + ... + 1) and then used your formula to find the answer. You then went a step further and proved your formula by checking it against the known data for f(3). This is a flawless execution of the problem-solving process.
+
+
+
+
+
+
