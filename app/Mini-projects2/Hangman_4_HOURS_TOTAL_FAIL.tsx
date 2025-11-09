@@ -1,3 +1,11 @@
+// 2 hours meddling with complex CSS which is NOT PRIORITY PRACTICE NOW - AT ALL!!!
+// another 2 hours on...solving but getting stuck on some basic input stuff and then input typing and getting bogged down by something all the time
+// then...still struggling inefficiently, very inefficiently
+// then getting STUCK on how the actual _ _ _ _ _ _ _ underscore display should work and how it should go from input submit and how that logic should operate on correct vs not correct...
+// TOTAL FAIL - 4 HOURS OF TOTAL INEFFICIENCY AND INEFFECTIVENESS!!!
+// It's important to note - ALL OF THAT - had nothing to do with javascript/react/typescript or any coding or tech-related skills
+// ALL OF THAT WAS 100% BANALS AND FUNDAMENTALS OF THE ART OF PROBLEM SOLVING BEING VIOLATED!!!
+
 "use client";
 import { useState, useEffect } from "react";
 
