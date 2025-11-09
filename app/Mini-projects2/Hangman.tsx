@@ -78,7 +78,7 @@ export default function Hangman() {
     const formattedLetter = letter.toUpperCase();
     setNextLetter(formattedLetter);
   };
-
+  // for git commit log -> debrief
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="flex gap-2">
