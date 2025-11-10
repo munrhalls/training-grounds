@@ -28,11 +28,13 @@ import Interleaving from "./Interleaving/Interleaving - list one";
 
 import { DataFetcher } from "./Component - useEffect and Async/UseEffectAndAsync";
 import Hangman_Revisited from "./Mini-projects2/Hangman_Revisited";
+import MorningDrills from "./MorningDrills";
 
 export default function Home() {
   return (
     <div className="h-screen">
-      <Hangman_Revisited />
+      <MorningDrills />
+      {/* <Hangman_Revisited /> */}
       {/* <DataFetcher /> */}
       {/* <TooltipFeature /> */}
       {/* <RegistrationFormFeature /> */}
