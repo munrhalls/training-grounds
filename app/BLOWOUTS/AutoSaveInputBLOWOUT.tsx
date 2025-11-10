@@ -309,7 +309,7 @@ NOTES DURING:
 
 - ok, NO. THIS IS TOO MUCH TIME.
 - wrote big note for Gemini Research Pro, fed all this and other data from my recent deliberate practice, my github etc. - let's see...
-
+// for commit
 
 
 */
